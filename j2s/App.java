@@ -16,7 +16,7 @@ class App {
       System.out.println(j);
       j*=i;
     }
-    System.out.println();
+    System.out.println(j);
     
     String[] names = new String[]{"blaz", "luka", "andraz"};
     
