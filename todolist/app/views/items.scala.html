@@ -1,0 +1,38 @@
+@(items: List[Item])
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo Items</title>
+</head>
+<body>
+
+    <div style="float: right">
+        <a href="@routes.Login.logout()">Logout</a>
+    </div>
+
+    <h1>Todo Items:</h1>
+    <br>
+
+    <ul>
+        @items.map { item =>
+            <li>
+                <h3>@item.name</h3>
+                <p>@item.content</p>
+
+                <form action="@routes.Application.delete()" method="POST">
+                    <input type="submit" value="Delete">
+                    <input type="hidden" name="name" value="@item.name">
+                </form>
+
+            </li>
+        }
+    </ul>
+    <hr>
+    <form method="POST" action="@routes.Application.create()">
+        Name: <input type="text" name="name"><br>
+        Content: <textarea name="content"></textarea>
+        <input type="submit" value="Create">
+    </form>
+
+</body>
+</html>
