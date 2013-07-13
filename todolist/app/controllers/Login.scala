@@ -2,22 +2,25 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-
-/**
- * User: bss
- * Date: 7/9/13
- * Time: 12:56 PM
- */
+import play.api.data.Forms._
+import play.api.data._
 
 object Login extends Controller {
 
+  val loginForm = Form(
+    tuple(
+      "username" -> text,
+      "password" -> text
+    )
+  )
+
   def login = Action {
-    Ok(views.html.login())
+    Ok(views.html.login(loginForm))
   }
 
-  def doLogin = Action { request =>
-    val username = request.body.asFormUrlEncoded.get.get("username").get.head
-    val password = request.body.asFormUrlEncoded.get.get("password").get.head
+  def doLogin = Action { implicit request =>
+
+    val (username, password) = loginForm.bindFromRequest.get
 
     //do some fancy shmancy auth
     if (username == "scala" && password == "jeKul") {
